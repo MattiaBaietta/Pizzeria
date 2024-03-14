@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Order";
+}
+
+<div class="container">
+    <h2>Scegli la pizza che vuoi ordinare</h2>
+
+    @foreach (var a in ViewBag.Pizze)
+    {
+        <div class="card mb-3" style="width: 18rem;">
+            @using (Html.BeginForm("AddIng", "User", FormMethod.Get))
+            {
+                <div>
+                    <img src="@a.FotoArt" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@a.NomeArt</h5>
+                        <p class="card-text">Prezzo: @a.PrezzoArt €</p>
+                        <input type="hidden" name="IdArticolo" value="@a.IdArticolo">
+                        @if (ViewBag.id == a.IdArticolo)
+                        {
+                            <label>Ingredienti Aggiunti:</label>
+                            foreach (var c in ViewBag.ingid)
+                            {
+                                <label>@c.NomeIng</label>
+                                <label>@c.PrezzoIng</label>
+                            }
+                        }
+
+                        <div class="mt-3">
+                            <select class="form-select" name="IdIngrediente">
+                                @foreach (var b in ViewBag.Ingredienti)
+                                {
+                                    <option value="@b.IdIngrediente">@b.NomeIng</option>
+                                }
+                            </select>
+                            <button type="submit" class="btn btn-success mt-2">Aggiungi Ingrediente</button>
+                        </div>
+                    </div>
+                </div>
+            }
+            @using (Html.BeginForm("AddArt", "User", FormMethod.Post))
+            {
+                <input type="hidden" name="IdArticolo" value="@a.IdArticolo">
+                <button type="submit" class="btn btn-primary">Ordina</button>
+            }
+        </div>
+    }
+
+
+</div>

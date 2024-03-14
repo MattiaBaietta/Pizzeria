@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "ViewCart";
+}
+
+<h2>ViewCart</h2>
+@{
+    int? previousPizzaId = null;
+}
+
+
+@using (Html.BeginForm())
+{
+    foreach (var pizza in ViewBag.ListaPizze)
+    {
+        <div class="mb-3">
+
+
+            @if (pizza.IdPizza == previousPizzaId)
+            {
+
+                <label>@pizza.NomeIng</label>
+                <label>@pizza.PrezzoIng</label>
+            }
+            else
+            {
+                <label>@pizza.NomeArt</label>
+                <label>@pizza.PrezzoArt €</label>
+                previousPizzaId = pizza.IdPizza;
+                if (pizza.NomeIng != "")
+                {
+                    <label>Ingredienti</label>
+                    <label>@pizza.NomeIng</label>
+                    <label>@pizza.PrezzoIng</label>
+                }
+
+            }
+
+
+
+            @*<button value="@a.IdArticolo" name="IdArticolo">Rimuovi</button>*@
+        </div>
+
+
+
+    }
+
+}
+@using (Html.BeginForm("Confirm", "User", FormMethod.Post))
+{
+    <button>Conferma Carrello</button>
+}
