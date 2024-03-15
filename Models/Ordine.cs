@@ -16,15 +16,15 @@ namespace Pizzeria.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+
         public int IdOrdine { get; set; }
 
-        public int Totale { get; set; }
+        public decimal Totale { get; set; }
 
         [Required]
         public string Indirizzo { get; set; }
 
-        [Required]
+
         public string Note { get; set; }
 
         [Required]
@@ -34,6 +34,8 @@ namespace Pizzeria.Models
         [Required]
         [StringLength(50)]
         public string Username { get; set; }
+        [Required]
+        public DateTime Data { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArticoliIngredienti> ArticoliIngredienti { get; set; }

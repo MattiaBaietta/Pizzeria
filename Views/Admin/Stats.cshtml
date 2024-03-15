@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Stats";
+}
+
+@{
+    ViewBag.Title = "Stats";
+}
+
+<div class="container">
+    <h2>Stats</h2>
+    <div class="row mb-3">
+        <div class="col">
+            <button id="Tot" class="btn btn-primary">Numero totale ordini evasi</button>
+            <div id="totale"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label for="datat" class="form-label">Scegli la data:</label>
+            <input type="date" id="datat" class="form-control" />
+        </div>
+        <div class="col">
+            <button id="sdata" class="btn btn-primary">Totale incassato</button>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div id="pdata"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#Tot').click(function () {
+                $('#totale').html("");
+                $.ajax({
+                    url: '/Admin/TotaleOrdini',
+                    type: 'GET',
+                    success: function (data) {
+                        $('#totale').append("<label>" + "Numero ordini: " + data);
+                    }
+                });
+            });
+        });
+
+        $('#sdata').click(function () {
+            $('#pdata').html("");
+            var selectedD = $('#datat').val();
+            $.ajax({
+                url: '/Admin/TotaleData',
+                type: 'GET',
+                data: { d: selectedD },
+                success: function (data) {
+                    $('#pdata').append("<label>" + "In questa giornata hai incassato: " + data + "€");
+                }
+            });
+        });
+
+    </script>
+}

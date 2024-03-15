@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "AddArt";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm())
+            {
+                <h3>Aggiungi la pizza che vuoi inserire nel menù</h3>
+                <div class="mb-3">
+                    <label class="form-label">Nome:</label>
+                    <input type="text" id="nome" name="NomeArt" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Foto:</label>
+                    <input type="text" name="FotoArt" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Prezzo:</label>
+                    <input type="number" name="PrezzoArt" class="form-control" min="0" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Tempo di preparazione:</label>
+                    <input type="number" name="TempoArt" class="form-control" min="0" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Aggiungi Pizza</button>
+            }
+        </div>
+    </div>
+</div>
+
+

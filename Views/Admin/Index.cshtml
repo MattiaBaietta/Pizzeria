@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    int? previousPizzaId = null;
+    int? previousOrder = null;
+}
+<h2>Lista Ordini:</h2>
+
+@using (Html.BeginForm("ConfirmOrder","Admin",FormMethod.Post))
+            {
+
+          
+    <div class="container">
+        @foreach (var pizza in ViewBag.PizzeOrdinate)
+        {
+            if (pizza.IdOrdine == previousOrder)
+            {
+                if (pizza.IdPizza != previousPizzaId)
+                {
+                    <label>+ @pizza.NomeIng </label>
+                }
+            }
+            else
+            {
+                if (previousOrder != null)
+                {
+                    <div class="mt-3">
+                        <label>Cambia Stato:</label>
+                        <input type="hidden" name="Id" value="@previousOrder" />
+                        <select class="form-select" name="Stato">
+                            <option value="In Preparazione">In Preparazione</option>
+                            <option value="Evaso">Evaso</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Conferma Stato</button>
+                    </div>
+                }
+                <div class="mt-4">Num ordine: @pizza.IdOrdine</div>
+                previousOrder = pizza.IdOrdine;
+            }
+            if (pizza.IdPizza == previousPizzaId)
+            {
+                <div class="mt-2">
+                <label>@pizza.NomeArt</label>
+                
+                </div>
+            }
+            else
+            {
+                <br />
+                <label>@pizza.NomeArt</label>
+                previousPizzaId = pizza.IdPizza;
+                if (!string.IsNullOrEmpty(pizza.NomeIng))
+                {
+                    <div class="mt-1">
+                    <label>+ @pizza.NomeIng</label>
+                    </div>
+                }
+            }
+        }
+        @if (previousOrder != null)
+        {
+            <div class="mt-3">
+                <label>Cambia Stato:</label>
+                <input type="hidden" name="Id" value="@previousOrder" />
+                <select class="form-select" name="Stato">
+                    <option value="In Preparazione">In Preparazione</option>
+                    <option value="Evaso">Evaso</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Conferma Stato</button>
+            </div>
+        }
+    </div>
+}

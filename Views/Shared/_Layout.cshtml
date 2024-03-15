@@ -25,7 +25,10 @@
                     {
                         if (User.IsInRole("Admin"))
                         {
-                            <li>@Html.ActionLink("Amministrazione", "Logout", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Gestisci Ordini", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Aggiungi Articolo", "AddArt", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Statistiche", "Stats", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+
                         }
                         else
                         {

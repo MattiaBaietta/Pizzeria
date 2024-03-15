@@ -39,9 +39,12 @@ namespace Pizzeria.Models
 
         public override string[] GetRolesForUser(string userId)
         {
-            string role = db.Utenti.Where(u => u.Username.ToString() == userId).FirstOrDefault().Role;
-            string[] roles = new string[] { role };
-            return roles;
+
+
+            var userFromDb = db.Utenti.Where(u => u.Username == userId).FirstOrDefault();
+            var userRole = userFromDb.Role;
+            string[] userRoles = new string[] { userRole };
+            return userRoles;
         }
 
         public override string[] GetUsersInRole(string roleName)
@@ -51,7 +54,8 @@ namespace Pizzeria.Models
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            throw new NotImplementedException();
+            var user = db.Utenti.FirstOrDefault(u => u.Username == username && u.Role == roleName);
+            return user != null;
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)

@@ -3,37 +3,40 @@
     ViewBag.Title = "Register";
 }
 @model Utenti
-<h2>Register</h2>
 
-@using (Html.BeginForm())
-{
-    if (TempData["ErrorRegister"] != null)
+<div class="container">
+    <h2>Register</h2>
+
+    @using (Html.BeginForm())
     {
-        <div class="alert alert-danger">
-            Le Password non sono uguali
+        if (TempData["ErrorRegister"] != null)
+        {
+            <div class="alert alert-danger">
+                Le Password non sono uguali
+            </div>
+        }
+        if (TempData["ErrorUser"] != null)
+        {
+            <div class="alert alert-danger">
+                Nome utente già esistente
+            </div>
+        }
+
+        <div class="mb-3">
+            <label class="form-label">Username:</label>
+            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
         </div>
-    }
-    if (TempData["ErrorUser"] != null)
-    {
-        <div class="alert alert-danger">
-            Nome utente già esistente
+
+        <div class="mb-3">
+            <label class="form-label">Password:</label>
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
         </div>
+
+        <div class="mb-3">
+            <label class="form-label">Conferma Password:</label>
+            <input type="password" name="Passw" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
     }
-    <div class="mb-3">
-        <label class="form-label">Username:</label>
-        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Password:</label>
-        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Conferma Password:</label>
-        <input type="text" name="Passw" class="form-control" />
-    </div>
-
-
-    <button type="submit" class="btn btn-primary">Login</button>
-}
+</div>

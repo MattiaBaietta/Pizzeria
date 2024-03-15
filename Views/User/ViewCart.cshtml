@@ -7,46 +7,53 @@
 @{
     int? previousPizzaId = null;
 }
-
-
-@using (Html.BeginForm())
+@if (TempData["ErrorIndirizzo"] != null)
 {
-    foreach (var pizza in ViewBag.ListaPizze)
-    {
-        <div class="mb-3">
+    <div class="alert alert-danger">
+        Devi inserire un indirizzo di spedizione
+    </div>
+}
 
-
-            @if (pizza.IdPizza == previousPizzaId)
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm("RemoveP", "User", FormMethod.Get))
             {
-
-                <label>@pizza.NomeIng</label>
-                <label>@pizza.PrezzoIng</label>
-            }
-            else
-            {
-                <label>@pizza.NomeArt</label>
-                <label>@pizza.PrezzoArt €</label>
-                previousPizzaId = pizza.IdPizza;
-                if (pizza.NomeIng != "")
+                foreach (var pizza in ViewBag.ListaPizze)
                 {
-                    <label>Ingredienti</label>
-                    <label>@pizza.NomeIng</label>
-                    <label>@pizza.PrezzoIng</label>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            @if (pizza.IdPizza != previousPizzaId)
+                            {
+                                <h5 class="card-title">@pizza.NomeArt</h5>
+                                <p class="card-text">@pizza.PrezzoArt €</p>
+                                if (!string.IsNullOrEmpty(pizza.NomeIng))
+                                {
+                                    <h6>Ingredienti</h6>
+                                    <p>@pizza.NomeIng - @pizza.PrezzoIng</p>
+                                }
+                                <input type="hidden" name="IdPizza" value="@pizza.IdPizza" />
+                                <button class="btn btn-danger">Rimuovi pizza</button>
+                            }
+                        </div>
+                    </div>
                 }
-
+                <label>Totale: @ViewBag.totale</label>
             }
-
-
-
-            @*<button value="@a.IdArticolo" name="IdArticolo">Rimuovi</button>*@
         </div>
-
-
-
-    }
-
-}
-@using (Html.BeginForm("Confirm", "User", FormMethod.Post))
-{
-    <button>Conferma Carrello</button>
-}
+        <div class="col-md-6">
+            @using (Html.BeginForm("Confirm", "User", FormMethod.Post))
+            {
+                <div class="mb-3">
+                    <label for="indirizzo" class="form-label">Inserisci Indirizzo:</label>
+                    <input type="text" class="form-control" id="indirizzo" name="Indirizzo" />
+                </div>
+                <div class="mb-3">
+                    <label for="note" class="form-label">Note:</label>
+                    <textarea class="form-control" id="note" name="Note" style="height: 150px;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Conferma Carrello</button>
+            }
+        </div>
+    </div>
+</div>
